@@ -68,7 +68,7 @@ const getInfo = (req, res, next) => {
 const updateProfile = (req, res, next) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
-    .orFail(new NotFound('User with this ID was not found.'))
+    .orFail(new NotFoundError('User with this ID was not found.'))
     .then((updateProfile) => res.send({ data: updateProfile }))
     .catch((err) => {
       if (err instanceof ValidationError) {
@@ -83,7 +83,7 @@ const updateAvatar = async (req, res, next) => {
   const { avatar } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
-    .orFail(new NotFound('Incorrected user ID'))
+    .orFail(new NotFoundError('Incorrected user ID'))
     .then((newAvatar) => res.send({ data: newAvatar }))
     .catch((err) => {
       if (err instanceof ValidationError) {
