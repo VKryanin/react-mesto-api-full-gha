@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 const { ValidationError } = mongoose.Error;
 const Card = require('../models/card');
-const {
-  STATUS_OK,
-  STATUS_CREATED,
-} = require('../utils/status');
 
 const { IncorrectRequestError } = require('../utils/errors/IncorrectRequestError');
 const { NotFoundError } = require('../utils/errors/NotFoundError');

@@ -3,10 +3,7 @@ const jsonWebToken = require('jsonwebtoken');
 const User = require('../models/user');
 const mongoose = require('mongoose');
 const { ValidationError } = mongoose.Error;
-const {
-  STATUS_OK,
-  STATUS_CREATED,
-} = require('../utils/status');
+const { security } = require('../utils/config');
 
 const { IncorrectRequestError } = require('../utils/errors/IncorrectRequestError');
 const { UnauthorizedError } = require('../utils/errors/UnauthorizedError');
@@ -27,9 +24,7 @@ const getUserById = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const {
-    name, about, avatar, email, password,
-  } = req.body;
+  const { name, about, avatar, email, password } = req.body;
   return bcrypt.hash(password, 10)
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
@@ -52,7 +47,7 @@ const login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, SECRET, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, { expiresIn: '7d' }, security);
       res.send({ token });
     })
     .catch((err) => next(err));
@@ -79,9 +74,8 @@ const updateProfile = (req, res, next) => {
     });
 };
 
-const updateAvatar = async (req, res, next) => {
+const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
-
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
     .orFail(new NotFoundError('Incorrected user ID'))
     .then((newAvatar) => res.send({ data: newAvatar }))

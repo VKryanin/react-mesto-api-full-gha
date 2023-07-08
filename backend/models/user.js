@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const { UnauthorizedError } = require('../utils/errors/UnauthorizedError');
 const bcrypt = require('bcryptjs');
+const { UnauthorizedError } = require('../utils/errors/UnauthorizedError');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -42,7 +42,10 @@ const userSchema = new mongoose.Schema({
       message: 'Invalid URL',
     },
   },
-});
+},
+  {
+    versionKey: false,
+  });
 
 // eslint-disable-next-line func-names
 userSchema.statics.findUserByCredentials = function (email, password) {
