@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+const { ValidationError } = mongoose.Error;
 const Card = require('../models/card');
 const {
   STATUS_OK,
@@ -8,100 +10,68 @@ const { IncorrectRequestError } = require('../utils/errors/IncorrectRequestError
 const { NotFoundError } = require('../utils/errors/NotFoundError');
 const { DeletionError } = require('../utils/errors/DeletionError');
 
-const getCards = async (req, res, next) => {
-  try {
-    const cards = await Card.find({});
-    res
-      .status(STATUS_OK)
-      .send(cards);
-  } catch (err) {
-    next(err);
-  }
+const getCards = (req, res, next) => {
+  Card.find({})
+    .then((cards) => res.send({ data: cards }))
+    .catch((err) => next(err));
 };
 
-const createCard = async (req, res, next) => {
+const createCard = (req, res, next) => {
   const { name, link } = req.body;
-  const owner = req.user._id;
-  try {
-    const card = await Card.create({ name, link, owner });
-    res
-      .status(STATUS_CREATED)
-      .send(card);
-  } catch (err) {
-    if (err instanceof IncorrectRequestError) {
-      next(new IncorrectRequestError('The data is incorrect'));
-    } else {
-      next(err);
-    }
-  }
+  Card.create({ name, link, owner: req.user._id })
+    .then((card) => res.status(201).send({ data: card }))
+    .catch((err) => {
+      if (err instanceof ValidationError) {
+        next(new IncorrectRequestError(err.message));
+      } else {
+        next(err);
+      }
+    });
 };
 
-const deleteCardById = async (req, res, next) => {
-  try {
-    const card = await Card
-      .findById(req.params.cardId);
-    if (!card) {
-      throw new NotFoundError('Card is not found');
-    } else if (card.owner.toString() === req.user._id) {
-      await Card.deleteOne(card);
-      res.status(STATUS_OK)
-        .send({ data: card });
-    } else {
-      throw new DeletionError('You do not have sufficient rights');
-    }
-  } catch (err) {
-    if (err.name === 'CastError') {
-      next(new IncorrectRequestError('The data is incorrect'));
-    } else {
-      next(err);
-    }
-  }
+const deleteCardById = (req, res, next) => {
+  Card.findById(req.params.cardId)
+    .orFail(new NotFound('The data is incorrect'))
+    .then((foundCard) => {
+      if (!foundCard.owner.equals(req.user._id)) return next(new DeletionError('You do not have sufficient rights'));
+
+      return Card.deleteOne(foundCard)
+        .then(() => res.send({ message: foundCard }));
+    })
+    .catch((err) => next(err));
 };
 
-const addCardLike = async (req, res, next) => {
-  try {
-    const card = await Card.findByIdAndUpdate(
-      req.params.cardId,
-      { $addToSet: { likes: req.user._id } },
-      { new: true },
-    );
-    if (card) {
-      res
-        .status(STATUS_OK)
-        .send(card);
-    } else {
-      throw new NotFoundError('Card is not found');
-    }
-  } catch (err) {
-    if (err.name === 'CastError') {
-      next(new IncorrectRequestError('The data is incorrect'));
-    } else {
-      next(err);
-    }
-  }
+const likeCard = (req, res, next) => {
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true },
+  )
+    .orFail(new NotFoundError('The data is incorrect'))
+    .then((card) => res.send({ data: card }))
+    .catch((err) => next(err));
 };
 
-const deleteCardLike = async (req, res, next) => {
-  try {
-    const card = await Card.findByIdAndUpdate(
-      req.params.cardId,
-      { $pull: { likes: req.user._id } },
-      { new: true },
-    );
-    if (card) {
-      res
-        .status(STATUS_OK)
-        .send(card);
-    } else {
-      throw new NotFoundError('Card is not found');
-    }
-  } catch (err) {
-    if (err.name === 'CastError') {
-      next(new IncorrectRequestError('Data is incorrect'));
-    } else {
-      next(err);
-    }
-  }
+const addCardLike = (req, res, next) => {
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true },
+  )
+    .orFail(new NotFoundError('The data is incorrect'))
+    .then((card) => res.send({ data: card }))
+    .catch((err) => next(err));
+};
+
+const deleteCardLike = (req, res, next) => {
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $pull: { likes: req.user._id } },
+    { new: true },
+  )
+    .orFail(new NotFoundError('The data is incorrect'))
+    .then((card) => res.send({ data: card }))
+    .catch((err) => next(err));
 };
 
 module.exports = {
