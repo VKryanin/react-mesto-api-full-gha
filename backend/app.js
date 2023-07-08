@@ -5,12 +5,14 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const router = require('./routes');
 const errorListener = require('./midlwares/error');
+const { requestLogger, errorLogger } = require('./midlwares/logger');
+const router = require('./routes');
 
 const app = express();
 app.use(cors());
-const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
+
+const { PORT, MONGO } = require('./utils/config');
 const limiter = rateLimit({
   windowMs: 1000,
   max: 5000,
@@ -18,7 +20,7 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-mongoose.connect(DB_URL, {
+mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useNewUrlParser: true,
 });
 

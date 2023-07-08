@@ -7,28 +7,28 @@ const auth = require('../midlwares/auth');
 const { createUser, login } = require('../controllers/users');
 const { NotFoundError } = require('../utils/errors/NotFoundError');
 
+router.use('/users', auth, userRoutes);
+router.use('/cards', auth, cardRoutes);
+
+router.post('/signin', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().min(7).required().email(),
+    password: Joi.string().required(),
+  }),
+}), login);
+
 router.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(3).max(30),
     avatar: Joi.string().pattern(urlCheking),
-    email: Joi.string().required().email(),
+    email: Joi.string().min(7).required().email(),
     password: Joi.string().required(),
   }),
 }), createUser);
 
-router.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), login);
 
-router.use(auth);
-
-router.use('/users', userRoutes);
-router.use('/cards', cardRoutes);
-router.use('/*', (req, res, next) => {
+router.use('*', (req, res, next) => {
   next(new NotFoundError('Error 404. Page not found'));
 });
 

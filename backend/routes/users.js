@@ -20,7 +20,7 @@ router.get('/:id', celebrate({
   }),
 }), getUserById);
 
-router.post('/', createUser);
+// router.post('/', createUser);
 
 router.patch('/me', celebrate({
   body: Joi.object().keys({
