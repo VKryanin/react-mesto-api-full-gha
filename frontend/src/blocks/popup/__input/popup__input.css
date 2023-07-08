@@ -1,0 +1,24 @@
+.popup__input {
+    padding: 0 0 13px 0;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+.popup__input_type_error {
+    border-bottom: 1px solid #FF0000;
+}
+
+.popup__input-error {
+    padding-top: 5px;
+    display: block;
+    box-sizing: border-box;
+    min-height: 36px;
+    color: #FF0000;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    visibility: hidden;
+}

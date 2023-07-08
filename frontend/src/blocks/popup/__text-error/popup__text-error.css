@@ -1,0 +1,25 @@
+.popup__text-error {
+    box-sizing: border-box;
+    color: red;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    min-height: 36px;
+    padding-top: 5px;
+    visibility: hidden;
+}
+
+.popup__input_type_visible {
+    visibility: visible;
+}
+
+.popup__span {
+    margin: 0;
+}
+
+@media screen and (max-width:880px) {
+    .popup__text-error:last-of-type {
+        /* margin-bottom: 45px; */
+    }
+}

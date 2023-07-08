@@ -1,0 +1,19 @@
+.popup__fullscreen {
+    visibility: hidden;
+    z-index: 1;
+    max-width: 75vw;
+    max-height: 75vh;
+    height: 562px;
+    position: relative;
+    /* top: 90px; */
+    transition: visibility .7s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none !important;
+}
+
+.popup__fullscreen_opened {
+    visibility: visible;
+    opacity: 1;
+}

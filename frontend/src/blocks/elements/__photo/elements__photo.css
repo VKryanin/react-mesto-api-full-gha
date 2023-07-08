@@ -1,0 +1,8 @@
+.elements__photo {
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 282px;
+    object-fit: cover;
+    object-position: bottom;
+    width: 100%;
+}

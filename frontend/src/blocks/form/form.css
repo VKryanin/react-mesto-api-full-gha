@@ -1,0 +1,40 @@
+.form {
+    max-width: 358px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.form h1 {
+    text-align: center;
+    margin: 60px auto 50px;
+}
+
+.form input {
+    border: transparent;
+    background-color: transparent;
+    border-bottom: 2px solid #CCCCCC;
+    color: #CCCCCC;
+    padding: 13px 0;
+    font-size: 14px;
+}
+
+.form input:last-of-type {
+    margin-top: 30px;
+}
+
+.form button {
+    max-width: 100%;
+    margin-top: 216px;
+    background: #FFFFFF;
+    border-radius: 2px;
+    border: transparent;
+    padding: 14px;
+    cursor: pointer;
+    transition: opacity .5s ease;
+}
+
+.form button:hover {
+    opacity: .7;
+}

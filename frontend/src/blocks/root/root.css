@@ -1,0 +1,8 @@
+.root {
+    background-color: #000;
+    width: 100%;
+    box-sizing: border-box;
+    color: #fff;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    position: relative;
+}

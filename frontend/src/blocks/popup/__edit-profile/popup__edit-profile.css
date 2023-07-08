@@ -1,0 +1,26 @@
+.popup__edit-profile {
+    visibility: hidden;
+    z-index: 1;
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background-color: #fff;
+    padding: 34px 36px 37px;
+    box-sizing: border-box;
+    width: 430px;
+    height: 330px;
+    border-radius: 10px;
+    transition: visibility .7s ease-in-out;
+}
+
+@media screen and (max-width:880px) {
+    .popup__edit-profile {
+        width: 282px;
+        height: 322px;
+        padding: 25px 22px 25px;
+        margin: 123px auto;
+    }
+}
+
+

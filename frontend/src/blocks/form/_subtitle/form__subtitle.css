@@ -1,0 +1,19 @@
+.form__subtitle {
+    margin: 15px auto;
+    max-width: 358px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.form__subtitle button {
+    background-color: transparent;
+    color: #fff;
+    border: transparent;
+    cursor: pointer;
+    transition: opacity .5s ease;
+}
+
+.form__subtitle button:hover {
+    opacity: .7;
+}

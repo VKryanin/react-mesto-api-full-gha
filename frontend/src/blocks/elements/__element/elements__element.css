@@ -1,0 +1,14 @@
+.elements__element {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+@media screen and (max-width:880px) {
+    .elements__element {
+        align-self: center;
+    }
+}

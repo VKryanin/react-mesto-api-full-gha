@@ -1,0 +1,7 @@
+.header__info {
+    display: flex;
+}
+
+.header__info p{
+    margin-right: 24px;
+}

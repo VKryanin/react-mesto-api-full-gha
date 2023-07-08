@@ -1,0 +1,27 @@
+.popup__message {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+
+.popup__message h2 {
+    margin: 32px auto 0;
+    text-align: center;
+}
+
+.popup__close {
+    position: absolute;
+    transform: translate(50%, -50%);
+    top: -24px;
+    right: -24px;
+    width: 32px;
+    cursor: pointer;
+    transition: opacity .5s ease;
+}
+
+.popup__close:hover {
+    opacity: .7;
+}
