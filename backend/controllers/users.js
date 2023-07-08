@@ -51,7 +51,6 @@ const login = (req, res, next) => {
       res.send({ token });
     })
     .catch((err) => {
-      console.log(err);
       next(err)
     });
 };
@@ -60,7 +59,8 @@ const getInfo = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(new NotFoundError('User with this ID was not found.'))
     .then((userData) => res.send({ data: userData }))
-    .catch((err) => next(err));
+    .catch((err) => {
+      next(err)});
 };
 
 const updateProfile = (req, res, next) => {
