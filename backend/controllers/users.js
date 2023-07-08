@@ -49,7 +49,7 @@ const createUser = async (req, res, next) => {
     });
 };
 
-const login = async (req, res, next) => {
+const login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
