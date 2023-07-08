@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const jsonWebToken = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const mongoose = require('mongoose');
 const { ValidationError } = mongoose.Error;
@@ -48,12 +48,13 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       console.log(user, 777);
-      const token = jwt.sign({ _id: user._id }, { expiresIn: '7d' }, security);
+      const token = jwt.sign({ _id: user._id }, security, { expiresIn: '7d' });
       res.send({ token });
     })
     .catch((err) => {
       console.log(err);
-      next(err)});
+      next(err)
+    });
 };
 
 const getInfo = (req, res, next) => {
