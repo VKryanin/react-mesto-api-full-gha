@@ -41,17 +41,6 @@ const deleteCardById = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-const likeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $addToSet: { likes: req.user._id } },
-    { new: true },
-  )
-    .orFail(new NotFoundError('The data is incorrect'))
-    .then((card) => res.send({ data: card }))
-    .catch((err) => next(err));
-};
-
 const addCardLike = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
