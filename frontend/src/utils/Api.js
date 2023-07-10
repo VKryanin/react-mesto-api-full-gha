@@ -2,8 +2,7 @@ import { config } from '../utils/apiConfig'
 
 export class Api {
     constructor({ url, headers }) {
-        this._url = url;
-        this._headers = headers;
+        this._url = 'http://localhost:3000/';
     }
     // ответ сервера
     _getResponseData(res) {
@@ -16,7 +15,7 @@ export class Api {
     }
     // данные пользователя
     getProfile() {
-        return fetch(`${this._link}/users/me`, {
+        return fetch(`${this._url}/users/me`, {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -26,7 +25,7 @@ export class Api {
     }
     // отправка данных пользователя
     patchUserData({ userName, userAbout }) {
-        return fetch(`${this._link}/users/me `, {
+        return fetch(`${this._url}/users/me `, {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -40,7 +39,7 @@ export class Api {
     }
     // отправка аватара
     patchUserPhoto({ photoLink }) {
-        return fetch(`${this._link}/users/me/avatar`, {
+        return fetch(`${this._url}/users/me/avatar`, {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -92,17 +91,21 @@ export class Api {
     // изменение лайка
     changeLikeCardStatus(cardId, isLiked) {
         if (isLiked) {
-            return fetch(`${this._url}cards/${cardId}/likes`, {
-                headers: this._headers,
-                method: 'PUT',
-            })
-                .then(res => { return this._getResponseData(res); })
+            return fetch(`${this._url}/cards/${cardId}/likes`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                },
+                method: "DELETE",
+            }).then((res) => this._getResponseData(res));
         } else {
-            return fetch(`${this._url}cards/${cardId}/likes`, {
-                headers: this._headers,
-                method: 'DELETE',
-            })
-                .then(res => { return this._getResponseData(res); })
+            return fetch(`${this._url}/cards/${cardId}/likes`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                },
+                method: "PUT",
+            }).then((res) => this._getResponseData(res));
         }
     }
 }
