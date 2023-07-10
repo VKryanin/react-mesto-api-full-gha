@@ -21,7 +21,7 @@ export class Api {
                 authorization: `Bearer ${localStorage.getItem("jwt")}`,
                 Accept: "*/*",
             },
-        }).then((res) => this._checkResponse(res));
+        }).then((res) => this._getResponseData(res));
     }
     // отправка данных пользователя
     patchUserData({ userName, userAbout }) {
@@ -35,7 +35,7 @@ export class Api {
                 userName,
                 userAbout,
             }),
-        }).then((res) => this._checkResponse(res));
+        }).then((res) => this._getResponseData(res));
     }
     // отправка аватара
     patchUserPhoto({ photoLink }) {
@@ -46,7 +46,7 @@ export class Api {
             },
             method: "PATCH",
             body: JSON.stringify({ photoLink }),
-        }).then((res) => this._checkResponse(res));
+        }).then((res) => this._getResponseData(res));
     }
     // получение пользователя, get по дефолту
     getCards() {

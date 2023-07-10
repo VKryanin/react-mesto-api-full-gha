@@ -147,9 +147,10 @@ function App() {
   function onLogin({ password, email }) {
     auth
       .authorize({ password, email })
-      .then(() => {
+      .then((res) => {
         setLoggedIn(true);
         setEmail(email);
+        localStorage.setItem("jwt", res.token);
         navigate('/', { replace: true });
       })
       .catch(() => {
