@@ -129,10 +129,10 @@ function App() {
           text: 'Вы успешно зарегистрировались!',
         });
         
-        if (res.jwt) {
-          setLoggedIn(true);
-          sessionStorage.getItem('jwt', res.jwt);
-        }
+        // if (res.jwt) {
+        //   setLoggedIn(true);
+        //   sessionStorage.getItem('jwt', res.jwt);
+        // }
       })
       .catch((err) => {
         console.log(err);

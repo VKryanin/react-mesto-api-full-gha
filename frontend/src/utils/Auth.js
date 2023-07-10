@@ -1,7 +1,12 @@
 export const baseUrl = 'http://localhost:3000';
 
 const handleRes = (res) => {
-  res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`);
+  if (res.ok) {
+    return res.json();
+  }
+  return res.text().then((text) => {
+    throw JSON.parse(text).message || JSON.parse(text).error;
+  });
 }
 
 export const register = ({ password, email }) => {
