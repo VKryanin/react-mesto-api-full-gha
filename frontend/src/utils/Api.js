@@ -24,7 +24,7 @@ export class Api {
         }).then((res) => this._getResponseData(res));
     }
     // отправка данных пользователя
-    patchUserData({ userName, userAbout }) {
+    patchUserData(userName, userAbout) {
         return fetch(`${this._url}users/me `, {
             headers: {
                 "Content-Type": "application/json",
@@ -32,20 +32,20 @@ export class Api {
             },
             method: "PATCH",
             body: JSON.stringify({
-                userName,
-                userAbout,
+                name: userName,
+                about: userAbout,
             }),
         }).then((res) => this._getResponseData(res));
     }
     // отправка аватара
-    patchUserPhoto({ photoLink }) {
+    patchUserPhoto(photoLink) {
         return fetch(`${this._url}users/me/avatar`, {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${localStorage.getItem("jwt")}`,
             },
             method: "PATCH",
-            body: JSON.stringify({ photoLink }),
+            body: JSON.stringify({ ...photoLink }),
         }).then((res) => this._getResponseData(res));
     }
     // получение пользователя, get по дефолту

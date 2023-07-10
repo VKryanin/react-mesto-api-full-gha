@@ -73,20 +73,24 @@ function App() {
   // доб. карточки
   function handleAddCard(cardItem) {
     api.addNewCard(cardItem.name, cardItem.link)
-      .then((card) => { 
-        setCards([card.data, ...cards]); closeAllPopups() })
+      .then((card) => {
+        setCards([card.data, ...cards]); closeAllPopups()
+      })
       .catch((err) => { console.log(`Возникла ошибка при добавлении новой карточки, ${err}`) })
   }
   // обн. пользователя
   function handleUpdateUser(userData) {
-    api.patchUserData(userData.name, userData.about)
-      .then((res) => { setCurrentUser(res); closeAllPopups() })
+    api.patchUsnerData(userData.name, userData.about)
+      .then((res) => {
+        setCurrentUser(res.data); closeAllPopups()
+      })
       .catch((err) => { console.log(`Возникла ошибка при редактировании профиля, ${err}`) })
   }
   // ред. аватара
   function handleUpdateAvatar(link) {
+    console.log(link);
     api.patchUserPhoto(link)
-      .then((res) => { setCurrentUser(res); closeAllPopups() })
+      .then((res) => { setCurrentUser(res.data); closeAllPopups() })
       .catch((err) => { console.log(`Возникла ошибка при зименении аватара, ${err}`) })
   }
   //сообщение
