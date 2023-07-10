@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Card } from "./Card";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Header } from './Header';
 import { Footer } from './Footer'
-
 
 export function Main(props) {
     const {
@@ -11,6 +10,7 @@ export function Main(props) {
         onSingOut,
     } = props;
     const userData = useContext(CurrentUserContext);
+
     return (
         <main>
             <Header title="Выход" email={email} isOpen={true} onSingOut={onSingOut} />

@@ -72,9 +72,9 @@ function App() {
   }
   // доб. карточки
   function handleAddCard(cardItem) {
-    console.log(cardItem);
     api.addNewCard(cardItem.name, cardItem.link)
-      .then((card) => { setCards([card, ...cards]); closeAllPopups() })
+      .then((card) => { 
+        setCards([card.data, ...cards]); closeAllPopups() })
       .catch((err) => { console.log(`Возникла ошибка при добавлении новой карточки, ${err}`) })
   }
   // обн. пользователя
@@ -129,7 +129,7 @@ function App() {
           imgPath: True,
           text: 'Вы успешно зарегистрировались!',
         });
-        
+
         // if (res.jwt) {
         //   setLoggedIn(true);
         //   sessionStorage.getItem('jwt', res.jwt);
