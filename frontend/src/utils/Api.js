@@ -9,13 +9,13 @@ export class Api {
         if (res.ok) {
             return res.json();
         }
-        else {
-            return Promise.reject(`et Ошибка: ${res.status}`);
-        }
+        return res.text().then((text) => {
+            throw JSON.parse(text).message || JSON.parse(text).error;
+        });
     }
     // данные пользователя
     getProfile() {
-        return fetch(`${this._url}/users/me`, {
+        return fetch(`${this._url}users/me`, {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -25,7 +25,7 @@ export class Api {
     }
     // отправка данных пользователя
     patchUserData({ userName, userAbout }) {
-        return fetch(`${this._url}/users/me `, {
+        return fetch(`${this._url}users/me `, {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -39,7 +39,7 @@ export class Api {
     }
     // отправка аватара
     patchUserPhoto({ photoLink }) {
-        return fetch(`${this._url}/users/me/avatar`, {
+        return fetch(`${this._url}users/me/avatar`, {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${localStorage.getItem("jwt")}`,

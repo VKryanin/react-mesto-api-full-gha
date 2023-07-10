@@ -103,11 +103,12 @@ function App() {
   }
   // контект при авторизации
   useEffect(() => {
+    const token = localStorage.getItem('jwt');
     if (loggedIn) {
-      Promise.all([api.getProfile(), api.getCards()])
+      Promise.all([api.getProfile(token), api.getCards(token)])
         .then(([userData, cardData]) => {
-          setCurrentUser(userData);
-          setCards(cardData);
+          setCurrentUser(userData.data);
+          setCards(cardData.data);
         })
         .catch((err) => {
           console.log(`Возникла глобальная ошибка, ${err}`);
