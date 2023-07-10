@@ -49,7 +49,6 @@ export function Main(props) {
             <section className="elements">
                 <ul className="elements__list">
                     {props.cards.map((card, index) => {
-                        console.log(card._id);
                         return (
                             <CurrentUserContext.Provider value={CurrentUserContext}>
                                 < Card

@@ -108,7 +108,7 @@ function App() {
       Promise.all([api.getProfile(token), api.getCards(token)])
         .then(([userData, cardData]) => {
           setCurrentUser(userData.data);
-          setCards(cardData.data);
+          setCards(cardData.data.reverse());
         })
         .catch((err) => {
           console.log(`Возникла глобальная ошибка, ${err}`);
