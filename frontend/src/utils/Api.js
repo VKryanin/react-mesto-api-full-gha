@@ -91,7 +91,7 @@ export class Api {
     // изменение лайка
     changeLikeCardStatus(cardId, isLiked) {
         if (isLiked) {
-            return fetch(`${this._url}/cards/${cardId}/likes`, {
+            return fetch(`${this._url}cards/${cardId}/likes`, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -99,7 +99,7 @@ export class Api {
                 method: "DELETE",
             }).then((res) => this._getResponseData(res));
         } else {
-            return fetch(`${this._url}/cards/${cardId}/likes`, {
+            return fetch(`${this._url}cards/${cardId}/likes`, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem("jwt")}`,

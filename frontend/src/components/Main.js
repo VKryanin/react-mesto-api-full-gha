@@ -48,17 +48,22 @@ export function Main(props) {
             </section>
             <section className="elements">
                 <ul className="elements__list">
-                    {props.cards.map((card) => {
-                        return < Card
-                            link={card.link}
-                            name={card.name}
-                            likeCount={card.likes.length}
-                            onCardClick={props.onCardClick}
-                            onCardLike={props.onCardLike}
-                            onCardDelete={props.onCardDelete}
-                            card={card}
-                            key={card._id}
-                        />
+                    {props.cards.map((card, index) => {
+                        console.log(card._id);
+                        return (
+                            <CurrentUserContext.Provider value={CurrentUserContext}>
+                                < Card
+                                    link={card.link}
+                                    name={card.name}
+                                    likeCount={card.likes}
+                                    onCardClick={props.onCardClick}
+                                    onCardLike={props.onCardLike}
+                                    onCardDelete={props.onCardDelete}
+                                    card={card}
+                                    key={index}
+                                />
+                            </CurrentUserContext.Provider>
+                        )
                     }
                     )}
                 </ul>
