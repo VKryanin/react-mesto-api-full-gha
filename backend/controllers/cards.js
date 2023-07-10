@@ -27,7 +27,7 @@ const createCard = (req, res, next) => {
 
 const deleteCardById = (req, res, next) => {
   Card.findById(req.params.cardId)
-    .orFail(new NotFound('The data is incorrect'))
+    .orFail(new NotFoundError('The data is incorrect'))
     .then((foundCard) => {
       if (!foundCard.owner.equals(req.user._id)) return next(new DeletionError('You do not have sufficient rights'));
 
