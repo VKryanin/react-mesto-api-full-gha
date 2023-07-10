@@ -105,7 +105,10 @@ export class Api {
                     authorization: `Bearer ${localStorage.getItem("jwt")}`,
                 },
                 method: "PUT",
-            }).then((res) => this._getResponseData(res));
+            }).then((res) => {
+                console.log(res.data);
+                this._getResponseData(res)
+            });
         }
     }
 }
