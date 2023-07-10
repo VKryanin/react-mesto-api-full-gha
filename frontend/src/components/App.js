@@ -120,21 +120,23 @@ function App() {
     auth
       .register({ password, email })
       .then((res) => {
+        console.log(res);
         navigate('/sing-in');
         setInfoTooltip(true);
-        setEmail(res.data.email);
+        setEmail(res);
         setMessage({
           imgPath: True,
           text: 'Вы успешно зарегистрировались!',
         });
+        
         if (res.jwt) {
           setLoggedIn(true);
           sessionStorage.getItem('jwt', res.jwt);
         }
       })
       .catch((err) => {
-        setInfoTooltip(true);
         console.log(err);
+        setInfoTooltip(true);
         setMessage({
           imgPath: False,
           text: 'Что-то пошло не так! Попробуйте ещё раз.',
