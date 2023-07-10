@@ -16,48 +16,59 @@ export class Api {
     }
     // данные пользователя
     getProfile() {
-        return fetch(`${this._url}users/me/`, {
-            headers: this._headers,
-        })
-            .then(res => {
-                return this._getResponseData(res);
-            })
+        return fetch(`${this._link}/users/me`, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                Accept: "*/*",
+            },
+        }).then((res) => this._checkResponse(res));
     }
     // отправка данных пользователя
-    patchUserData(userName, userAbout) {
-        return fetch(`${this._url}users/me/`, {
-            headers: this._headers,
-            method: 'PATCH',
-            body: JSON.stringify({ name: userName, about: userAbout })
-        })
-            .then(res => {
-                return this._getResponseData(res);
-            })
+    patchUserData({ userName, userAbout }) {
+        return fetch(`${this._link}/users/me `, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+            method: "PATCH",
+            body: JSON.stringify({
+                userName,
+                userAbout,
+            }),
+        }).then((res) => this._checkResponse(res));
     }
     // отправка аватара
-    patchUserPhoto(photoLink) {
-        return fetch(`${this._url}users/me/avatar/`, {
-            headers: this._headers,
-            method: 'PATCH',
-            body: JSON.stringify({ avatar: photoLink.avatar })
-        })
-            .then(res => {
-                return this._getResponseData(res);
-            })
+    patchUserPhoto({ photoLink }) {
+        return fetch(`${this._link}/users/me/avatar`, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+            method: "PATCH",
+            body: JSON.stringify({ photoLink }),
+        }).then((res) => this._checkResponse(res));
     }
     // получение пользователя, get по дефолту
     getCards() {
-        return fetch(`${this._url}cards/`, {
-            headers: this._headers
+        return fetch(`${this._url}cards`, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                Accept: "*/*",
+            }
         })
             .then(res => {
                 return this._getResponseData(res);
             })
     }
     // добавление карточки
-    addNewCard( name, link ) {
+    addNewCard(name, link) {
         return fetch(`${this._url}cards`, {
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
             method: 'POST',
             body: JSON.stringify({ name, link })
         })
@@ -68,7 +79,10 @@ export class Api {
     // удаление карточки
     deleteCard(cardId) {
         return fetch(`${this._url}cards/${cardId}`, {
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
             method: 'DELETE',
         })
             .then(res => {
