@@ -1,4 +1,4 @@
-export const baseUrl = 'https://auth.nomoreparties.co';
+export const baseUrl = 'http://localhost:3000';
 
 const handleRes = (res) =>
   res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`);
