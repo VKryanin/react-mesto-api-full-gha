@@ -38,14 +38,15 @@ const deleteCardById = (req, res, next) => {
 };
 
 const addCardLike = (req, res, next) => {
+  console.log(req.user, 12);
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
     .orFail(new NotFoundError('The data is incorrect'))
-    .then((card) => res.send({ data: card }))
-    .catch((err) => next(err));
+  .then((card) => res.send({ data: card }))
+  .catch((err) => next(err));
 };
 
 const deleteCardLike = (req, res, next) => {

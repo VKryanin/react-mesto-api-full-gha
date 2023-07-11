@@ -49,7 +49,9 @@ function App() {
   // удаление карточки
   function handleCardDelete(card) {
     api.deleteCard(card._id)
-      .then(() => { setCards((cardsArray) => cardsArray.filter((cardItem) => cardItem._id !== card._id)) })
+      .then(() => {
+        setCards((cardsArray) => cardsArray.filter((cardItem) => cardItem._id !== card._id))
+      })
       .catch((err) => { console.log(`Возникла ошибка при удалении карточки, ${err}`) })
   }
   // попап карточки
@@ -63,7 +65,7 @@ function App() {
   }
   // лайк карточки
   function handleCardLike(card) {
-    console.log(cards);
+    console.log(card.likes);
     const isLiked = card.likes.some(cardItem => cardItem._id === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((cardsItem) => {
@@ -73,7 +75,7 @@ function App() {
   }
   // доб. карточки
   function handleAddCard(cardItem) {
-    api.patchUserData(cardItem.name, cardItem.link)
+    api.addNewCard(cardItem.name, cardItem.link)
       .then((card) => {
         setCards([card.data, ...cards]); closeAllPopups()
       })

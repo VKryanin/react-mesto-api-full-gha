@@ -7,7 +7,6 @@ export class Api {
     // ответ сервера
     _getResponseData(res) {
         if (res.ok) {
-            console.log(res.body);
             return res.json();
         }
         return res.text().then((text) => {
@@ -97,19 +96,18 @@ export class Api {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem("jwt")}`,
                 },
-                method: "DELETE",
-            }).then((res) => this._getResponseData(res));
+                method: 'PUT',
+            })
+                .then(res => { return this._getResponseData(res); })
         } else {
             return fetch(`${this._url}cards/${cardId}/likes`, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem("jwt")}`,
                 },
-                method: "PUT",
-            }).then((res) => {
-                console.log(res.data);
-                this._getResponseData(res)
-            });
+                method: 'DELETE',
+            })
+                .then(res => { return this._getResponseData(res); })
         }
     }
 }

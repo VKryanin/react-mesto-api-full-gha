@@ -18,7 +18,7 @@ export function Card(props) {
                 <p className="elements__subtitle">{props.name}</p>
                 <div className="card__like-wrapper">
                     <button onClick={() => {props.onCardLike(props.card)}} className="elements__button"></button>
-                    <p className="cards__like-count">{props.likeCount > 0 ? props.likeCount : null}</p>
+                    <p className="cards__like-count">{props.likeCount.length > 0 ? props.likeCount.length : null}</p>
                 </div>
             </div>
             {isOwner && <button className="elements__delete" onClick={handleDelete}></button>}
