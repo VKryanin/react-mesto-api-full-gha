@@ -2,7 +2,7 @@ import { config } from '../utils/apiConfig'
 
 export class Api {
     constructor({ url, headers }) {
-        this._url = 'http://localhost:3000/';
+        this._url = 'http://localhost:3000/api/';
     }
     // ответ сервера
     _getResponseData(res) {
