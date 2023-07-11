@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
@@ -27,11 +28,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 
 app.use(express.json());
 
-app.use(limiter);
+
 app.use(cookieParser());
-
+app.use(helmet());
 app.use(requestLogger);
-
+app.use(limiter);
 routes(app);
 
 app.use(errorLogger);
