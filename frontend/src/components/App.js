@@ -73,6 +73,7 @@ function App() {
             setCards((state) => {
                 const arr = state.map((cardItem) =>
                     data._id === cardItem._id ? data : cardItem
+                    
                 );
                 return arr;
             });
