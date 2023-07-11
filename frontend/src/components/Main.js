@@ -58,7 +58,6 @@ export function Main(props) {
                                     onCardLike={props.onCardLike}
                                     onCardDelete={props.onCardDelete}
                                     card={card}
-                                    key={index}
                                 />
                             </CurrentUserContext.Provider>
                         )
