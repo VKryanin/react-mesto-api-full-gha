@@ -49,7 +49,7 @@ export function Main(props) {
                 <ul className="elements__list">
                     {props.cards.map((card, index) => {
                         return (
-                            <CurrentUserContext.Provider value={userData}>
+                            <CurrentUserContext.Provider key={index} value={userData}>
                                 < Card
                                     link={card.link}
                                     name={card.name}
