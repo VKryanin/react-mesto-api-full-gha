@@ -2,7 +2,7 @@ import { config } from '../utils/apiConfig'
 
 export class Api {
     constructor() {
-        this._url = 'http://api.vitaly.nomoredomains.work/';
+        this._url = 'https://api.vitaly.nomoredomains.work/';
     }
     // ответ сервера
     _getResponseData(res) {

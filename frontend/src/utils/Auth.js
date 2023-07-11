@@ -1,4 +1,4 @@
-export const baseUrl = 'http://api.vitaly.nomoredomains.work';
+export const baseUrl = 'https://api.vitaly.nomoredomains.work';
 
 const handleRes = (res) => {
   if (res.ok) {
