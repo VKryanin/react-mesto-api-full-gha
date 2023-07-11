@@ -6,7 +6,7 @@
 //     }
 // }
 export const config = {
-    url: 'http://localhost:3000/',
+    url: 'api.vitaly.nomoredomains.work/',
     // headers: {
     //     authorization: '2490c461-68f2-4278-9a54-44a4e3f310bd',
     //     'Content-Type': 'application/json'
