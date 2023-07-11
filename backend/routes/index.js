@@ -7,17 +7,17 @@ const auth = require('../midlwares/auth');
 const { createUser, login } = require('../controllers/users');
 const { NotFoundError } = require('../utils/errors/NotFoundError');
 
-router.use('/users', auth, userRoutes);
-router.use('/cards', auth, cardRoutes);
+router.use('/api/users', auth, userRoutes);
+router.use('/api/cards', auth, cardRoutes);
 
-router.post('/signin', celebrate({
+router.post('/api/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().min(7).required().email(),
     password: Joi.string().required(),
   }),
 }), login);
 
-router.post('/signup', celebrate({
+router.post('/api/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().min(7).required().email(),
     password: Joi.string().required(),
