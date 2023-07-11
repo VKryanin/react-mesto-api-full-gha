@@ -7,7 +7,6 @@ const { ValidationError } = mongoose.Error;
 const { security } = require('../utils/config');
 
 const { IncorrectRequestError } = require('../utils/errors/IncorrectRequestError');
-const { UnauthorizedError } = require('../utils/errors/UnauthorizedError');
 const { NotFoundError } = require('../utils/errors/NotFoundError');
 const { EmailIsBusyError } = require('../utils/errors/EmailIsBusyError');
 
@@ -50,10 +49,7 @@ const login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      // const token = jwt.sign({ _id: user._id }, security, { expiresIn: '7d' });
-      // const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
       const token = jwt.sign({ _id: user._id }, security, { expiresIn: '7d' });
-      console.log(security);
       res.send({ token });
     })
     .catch((err) => {
@@ -74,7 +70,9 @@ const updateProfile = (req, res, next) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
     .orFail(new NotFoundError('User with this ID was not found.'))
-    .then((updateProfile) => res.send({ data: updateProfile }))
+    .then((updatedProfile) => {
+      res.send({ data: updatedProfile });
+    })
     .catch((err) => {
       if (err instanceof ValidationError) {
         next(new IncorrectRequestError(err.message));

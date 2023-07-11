@@ -7,12 +7,12 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const errorListener = require('./midlwares/error');
 const { requestLogger, errorLogger } = require('./midlwares/logger');
-const router = require('./routes');
+const routes = require('./routes');
 
 const app = express();
 app.use(cors());
 
-const { PORT, MONGO } = require('./utils/config');
+const { PORT } = require('./utils/config');
 
 const limiter = rateLimit({
   windowMs: 1000,
@@ -32,7 +32,7 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 
-app.use(router);
+routes(app);
 
 app.use(errorLogger);
 app.use(errors());
@@ -40,5 +40,5 @@ app.use(errorListener);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log('Слушаю порт 3000');
+  console.log(`Слушаю порт ${PORT}`);
 });
