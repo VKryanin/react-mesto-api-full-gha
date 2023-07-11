@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Card } from "./Card";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Header } from './Header';
