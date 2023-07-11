@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export function Card(props) {
@@ -8,7 +8,7 @@ export function Card(props) {
     function handleDelete() { props.onCardDelete(props.card) }
     const userItem = useContext(CurrentUserContext);
     const isOwner = props.card.owner === userItem._id;
-   
+
     return (
         <li className="elements__element">
             <img className="elements__photo"
@@ -18,8 +18,8 @@ export function Card(props) {
             <div className="elements__info">
                 <p className="elements__subtitle">{props.name}</p>
                 <div className="card__like-wrapper">
-                    <button onClick={() => {props.onCardLike(props.card)}} className="elements__button"></button>
-                    <p className="cards__like-count">{props.likeCount.length > 0 ? props.likeCount.length : null}</p>
+                    <button onClick={() => { props.onCardLike(props.card) }} className="elements__button"></button>
+                    <p className="cards__like-count">{props.likeCount && props.likeCount.length > 0 ? props.likeCount.length : null}</p>
                 </div>
             </div>
             {isOwner && <button className="elements__delete" onClick={handleDelete}></button>}

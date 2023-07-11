@@ -65,13 +65,22 @@ function App() {
   }
   // лайк карточки
   function handleCardLike(card) {
-    const isLiked = card.likes.some(cardItem => cardItem._id === currentUser._id);
+    const isLiked = card.likes.some(
+        (cardItem) => cardItem === currentUser._id
+    );
     api.changeLikeCardStatus(card._id, !isLiked)
-      .then((cardsItem) => {
-        setCards((state) => state.map((cardItem) => cardItem._id === card._id ? cardsItem : cardItem))
-      })
-      .catch((err) => { console.log(`Возникла ошибка при обработке лайков, ${err}`) })
-  }
+        .then(({ data }) => {
+            setCards((state) => {
+                const arr = state.map((cardItem) =>
+                    data._id === cardItem._id ? data : cardItem
+                );
+                return arr;
+            });
+        })
+        .catch((err) => {
+            console.log(`Возникла ошибка при обработке лайков, ${err}`);
+        });
+}
   // доб. карточки
   function handleAddCard(cardItem) {
     api.addNewCard(cardItem.name, cardItem.link)
