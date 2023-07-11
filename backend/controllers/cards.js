@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const { ValidationError } = mongoose.Error;
 const Card = require('../models/card');
 
@@ -44,8 +45,8 @@ const addCardLike = (req, res, next) => {
     { new: true },
   )
     .orFail(new NotFoundError('The data is incorrect'))
-  .then((card) => res.send({ data: card }))
-  .catch((err) => next(err));
+    .then((card) => res.send({ data: card }))
+    .catch((err) => next(err));
 };
 
 const deleteCardLike = (req, res, next) => {

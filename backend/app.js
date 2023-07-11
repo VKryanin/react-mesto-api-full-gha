@@ -8,10 +8,12 @@ const { errors } = require('celebrate');
 const errorListener = require('./midlwares/error');
 const { requestLogger, errorLogger } = require('./midlwares/logger');
 const router = require('./routes');
+
 const app = express();
 app.use(cors());
 
 const { PORT, MONGO } = require('./utils/config');
+
 const limiter = rateLimit({
   windowMs: 1000,
   max: 5000,

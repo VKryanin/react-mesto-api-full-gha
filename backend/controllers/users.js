@@ -1,7 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
 const mongoose = require('mongoose');
+const User = require('../models/user');
+
 const { ValidationError } = mongoose.Error;
 const { security } = require('../utils/config');
 
@@ -24,7 +25,9 @@ const getUserById = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
   return bcrypt.hash(password, 10)
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
@@ -49,12 +52,12 @@ const login = (req, res, next) => {
     .then((user) => {
       // const token = jwt.sign({ _id: user._id }, security, { expiresIn: '7d' });
       // const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-      const token = jwt.sign({ _id: user._id },security, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, security, { expiresIn: '7d' });
       console.log(security);
       res.send({ token });
     })
     .catch((err) => {
-      next(err)
+      next(err);
     });
 };
 
@@ -63,7 +66,8 @@ const getInfo = (req, res, next) => {
     .orFail(new NotFoundError('User with this ID was not found.'))
     .then((userData) => res.send({ data: userData }))
     .catch((err) => {
-      next(err)});
+      next(err);
+    });
 };
 
 const updateProfile = (req, res, next) => {

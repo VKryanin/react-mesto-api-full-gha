@@ -27,7 +27,6 @@ router.post('/signup', celebrate({
   }),
 }), createUser);
 
-
 router.use('*', auth, (req, res, next) => {
   next(new NotFoundError('Error 404. Page not found'));
 });

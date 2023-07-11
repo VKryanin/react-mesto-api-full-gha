@@ -1,5 +1,3 @@
-import { config } from '../utils/apiConfig'
-
 export class Api {
     constructor() {
         this._url = 'https://api.vitaly.nomoredomains.work/';
@@ -112,4 +110,4 @@ export class Api {
     }
 }
 // создание класса
-export const api = new Api(config);
+export const api = new Api();
