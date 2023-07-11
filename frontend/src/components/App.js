@@ -63,6 +63,7 @@ function App() {
   }
   // лайк карточки
   function handleCardLike(card) {
+    console.log(cards);
     const isLiked = card.likes.some(cardItem => cardItem._id === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((cardsItem) => {
@@ -72,7 +73,7 @@ function App() {
   }
   // доб. карточки
   function handleAddCard(cardItem) {
-    api.addNewCard(cardItem.name, cardItem.link)
+    api.patchUserData(cardItem.name, cardItem.link)
       .then((card) => {
         setCards([card.data, ...cards]); closeAllPopups()
       })
@@ -80,7 +81,7 @@ function App() {
   }
   // обн. пользователя
   function handleUpdateUser(userData) {
-    api.patchUsnerData(userData.name, userData.about)
+    api.patchUserData(userData.name, userData.about)
       .then((res) => {
         setCurrentUser(res.data); closeAllPopups()
       })

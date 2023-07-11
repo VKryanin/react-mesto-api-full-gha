@@ -7,6 +7,7 @@ export class Api {
     // ответ сервера
     _getResponseData(res) {
         if (res.ok) {
+            console.log(res.body);
             return res.json();
         }
         return res.text().then((text) => {
