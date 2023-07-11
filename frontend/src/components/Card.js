@@ -8,7 +8,7 @@ export function Card(props) {
     function handleDelete() { props.onCardDelete(props.card) }
     const userItem = useContext(CurrentUserContext);
     const isOwner = props.card.owner === userItem._id;
-    console.log(isOwner);
+   
     return (
         <li className="elements__element">
             <img className="elements__photo"
