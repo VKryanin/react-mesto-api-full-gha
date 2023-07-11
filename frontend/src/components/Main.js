@@ -10,7 +10,6 @@ export function Main(props) {
         onSingOut,
     } = props;
     const userData = useContext(CurrentUserContext);
-
     return (
         <main>
             <Header title="Выход" email={email} isOpen={true} onSingOut={onSingOut} />
@@ -50,7 +49,7 @@ export function Main(props) {
                 <ul className="elements__list">
                     {props.cards.map((card, index) => {
                         return (
-                            <CurrentUserContext.Provider value={CurrentUserContext}>
+                            <CurrentUserContext.Provider value={userData}>
                                 < Card
                                     link={card.link}
                                     name={card.name}
