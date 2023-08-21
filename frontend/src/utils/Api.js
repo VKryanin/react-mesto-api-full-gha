@@ -1,6 +1,6 @@
 export class Api {
     constructor() {
-        this._url = 'https://api.vitaly.nomoredomains.work/';
+        this._url = 'https://api.mesto-vitaly.nomoredomainsicu.ru/';
     }
     // ответ сервера
     _getResponseData(res) {
