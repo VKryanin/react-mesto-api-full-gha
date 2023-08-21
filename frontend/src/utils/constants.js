@@ -11,4 +11,4 @@ export const constants = {
 
 export const closePopup = (e, onClose) => {
     if (e.target === e.currentTarget) onClose();
-  }
+}
